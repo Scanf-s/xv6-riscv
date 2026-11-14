@@ -61,5 +61,43 @@ void
 memdump(char *fmt, char *data)
 {
   // Your code here.
-
+  for (int i = 0; fmt[i] != '\0'; ++i) {
+    switch (fmt[i]) {
+      case 'i':
+        int* integer_ptr = (int *)data;
+        int integer32 = *integer_ptr;
+        printf("%d\n", integer32);
+        data = data + sizeof(int);
+        break;
+      case 'p':
+        uint64 *integer64_ptr = (uint64 *)data;
+        uint64 integer64 = *integer64_ptr;
+        printf("%lx\n", integer64);
+        data = data + sizeof(uint64);
+        break;
+      case 'h':
+        short *integer16_ptr = (short *)data;
+        short integer16 = *integer16_ptr;
+        printf("%d\n", integer16);
+        data = data + sizeof(short);
+        break;
+      case 'c':
+        char *ch = data;
+        printf("%c\n", *ch);
+        data = data + sizeof(char);
+        break;
+      case 's':
+        char **str8_ptr = (char **)data;
+        char *str8 = *str8_ptr;
+        printf("%s\n", str8);
+        data = data + sizeof(char *);
+        break;
+      case 'S':
+        printf("%s\n", data);
+        break;
+      default:
+        printf("Unknown format specifier: %c\n", fmt[i]);
+        return;
+    }
+  }
 }
